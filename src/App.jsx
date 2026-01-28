@@ -16,6 +16,7 @@ export default function App() {
     const [applications, setApplications] = useState([]);
     const [company, setCompany] = useState("");
     const [role, setRole] = useState("");
+    const [status, setStatus] = useState("");
 
     // --- Fetch applications from Firestore on mount ---
     useEffect(() => {
@@ -35,13 +36,14 @@ export default function App() {
         e.preventDefault();
         if (!company || !role) return;
 
-        const newApp = { company, role };
+        const newApp = { company, role, status };
 
         try {
             const docRef = await addDoc(collection(db, "applications"), newApp);
             setApplications((prev) => [...prev, { id: docRef.id, ...newApp }]);
             setCompany("");
             setRole("");
+            setStatus("Applied");
         } catch (err) {
             console.error("Error adding application:", err);
         }
@@ -65,8 +67,10 @@ export default function App() {
             <ApplicationForm
                 company={company}
                 role={role}
+                status={status}
                 setCompany={setCompany}
                 setRole={setRole}
+                setStatus={setStatus}
                 onSubmit={addApplication}
             />
 
