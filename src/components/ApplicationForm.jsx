@@ -29,6 +29,7 @@ export default function ApplicationForm({
                 className="h-9 border-2 rounded-md px-3 py-1 hover:scale-101 transition duration-300 ease-in-out"
                 name="status"
                 id="status"
+                aria-label="Application status"
                 value={status}
                 onChange={(e) => setStatus(e.target.value)}
             >
