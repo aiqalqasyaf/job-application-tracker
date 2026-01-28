@@ -19,7 +19,7 @@ export default function ApplicationCard({ application, onDelete }) {
                 {application.status}
             </p>
             <button
-                className="bg-red-600 text-white py-2 px-7 rounded-lg transition duration-300 ease-in-out hover:scale-101  hover:bg-red-700 active:bg-red-600 active:cursor-grab hover:cursor-pointer font-bold w-40 justify-self-end"
+                className="bg-red-600 text-white py-2 px-7 rounded-lg transition duration-300 ease-in-out hover:scale-105  hover:bg-red-700 active:bg-red-600 active:cursor-grab hover:cursor-pointer font-bold w-40 justify-self-end"
                 onClick={() => onDelete(application.id)}
             >
                 Delete
