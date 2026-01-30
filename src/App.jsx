@@ -10,6 +10,7 @@ import {
     getDocs,
     deleteDoc,
     doc,
+    updateDoc,
 } from "firebase/firestore";
 
 export default function App() {
@@ -17,6 +18,7 @@ export default function App() {
     const [company, setCompany] = useState("");
     const [role, setRole] = useState("");
     const [status, setStatus] = useState("");
+    const [editingid, setEditingid] = useState(null);
 
     // --- Fetch applications from Firestore on mount ---
     useEffect(() => {
@@ -59,6 +61,20 @@ export default function App() {
         }
     }
 
+    // --- Edit application in Firestore ---
+    async function editApplication(id, updatedData) {
+        try {
+            await updateDoc(doc(db, "applications", id), updatedData);
+            setApplications((prev) =>
+                prev.map((app) =>
+                    app.id === id ? { ...app, ...updatedData } : app,
+                ),
+            );
+        } catch (err) {
+            console.error("Error updating application:", err);
+        }
+    }
+
     return (
         <div className="flex flex-col items-center gap-2">
             <Header />
@@ -81,6 +97,7 @@ export default function App() {
                         key={app.id}
                         application={app}
                         onDelete={deleteApplication}
+                        onEdit={editApplication}
                     />
                 ))}
             </section>
